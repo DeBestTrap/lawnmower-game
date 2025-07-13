@@ -1,0 +1,38 @@
+[gd_scene load_steps=8 format=3 uid="uid://c6xxdkdg3kup4"]
+
+[ext_resource type="Script" uid="uid://dinemdd5xkcwr" path="res://player/player.gd" id="1_oul6g"]
+[ext_resource type="Texture2D" uid="uid://cl7q4ssyy1d6r" path="res://player/placeholder_robo.png" id="2_rkbax"]
+[ext_resource type="Script" uid="uid://jvesccsq4yf3" path="res://player/player_movement_handler.gd" id="3_g1dw6"]
+[ext_resource type="Script" uid="uid://i5jsrt6aytc5" path="res://state_machine/state_machine.gd" id="4_qjkh3"]
+[ext_resource type="PackedScene" uid="uid://c0wuh2uu62u07" path="res://states/idle.tscn" id="5_g6k8r"]
+[ext_resource type="PackedScene" uid="uid://383ixrb3csvi" path="res://states/moving.tscn" id="6_boad6"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_qjkh3"]
+radius = 52.0
+height = 156.0
+
+[node name="player" type="CharacterBody2D"]
+script = ExtResource("1_oul6g")
+metadata/_custom_type_script = "uid://c4486wnuwl3tj"
+
+[node name="placeholder_robo" type="Sprite2D" parent="."]
+position = Vector2(1.19209e-07, 0.999996)
+scale = Vector2(0.186267, 0.186267)
+texture = ExtResource("2_rkbax")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_qjkh3")
+
+[node name="PlayerMovementHandler" type="Node" parent="."]
+script = ExtResource("3_g1dw6")
+metadata/_custom_type_script = "uid://jvesccsq4yf3"
+
+[node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("movement_handler", "initial_state")]
+script = ExtResource("4_qjkh3")
+movement_handler = NodePath("../PlayerMovementHandler")
+initial_state = NodePath("Idle")
+metadata/_custom_type_script = "uid://i5jsrt6aytc5"
+
+[node name="Idle" parent="StateMachine" instance=ExtResource("5_g6k8r")]
+
+[node name="Moving" parent="StateMachine" instance=ExtResource("6_boad6")]

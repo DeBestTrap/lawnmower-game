@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://cl7q4ssyy1d6r"
-path="res://.godot/imported/placeholder_robo.png-6895043f62d5b048c12d36ed1446d779.ctex"
+path="res://.godot/imported/placeholder_robo.png-9151186865517c825ecea3ca21c5b685.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://entity/placeholder_robo.png"
-dest_files=["res://.godot/imported/placeholder_robo.png-6895043f62d5b048c12d36ed1446d779.ctex"]
+source_file="res://player/placeholder_robo.png"
+dest_files=["res://.godot/imported/placeholder_robo.png-9151186865517c825ecea3ca21c5b685.ctex"]
 
 [params]
 

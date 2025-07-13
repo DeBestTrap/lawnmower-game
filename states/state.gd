@@ -3,8 +3,10 @@ extends Node
 
 # This is a virtual class, it should not be used directly
 var actor: Entity
-# var movement_handler: MovementHandler
+var movement_handler: MovementHandler
 var previous_state: State
+
+signal transition_to(state:State, next_state_name: String)
 
 func enter(prev_state: State) -> void: 
     previous_state = prev_state

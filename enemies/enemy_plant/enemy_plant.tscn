@@ -1,11 +1,35 @@
-[gd_scene load_steps=3 format=3 uid="uid://dgho532mhr1a1"]
+[gd_scene load_steps=8 format=3 uid="uid://dgho532mhr1a1"]
 
 [ext_resource type="Script" uid="uid://dr77hf0yerwrx" path="res://enemies/enemy_plant/enemy_plant.gd" id="1_vqh3w"]
 [ext_resource type="Texture2D" uid="uid://dc50kt5gsv73e" path="res://enemies/enemy_plant/placeholder_plant.jpg" id="2_0xxn4"]
+[ext_resource type="PackedScene" uid="uid://cn4ghf6dfw0fr" path="res://state_machine/state_machine.tscn" id="3_lm02h"]
+[ext_resource type="PackedScene" uid="uid://c0wuh2uu62u07" path="res://states/idle.tscn" id="4_lm02h"]
+[ext_resource type="PackedScene" uid="uid://383ixrb3csvi" path="res://states/moving.tscn" id="5_0v83d"]
+[ext_resource type="Script" uid="uid://bqrn23ydrypm3" path="res://enemies/enemy_plant/movement_handler.gd" id="6_hmky1"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_0xxn4"]
+radius = 55.0
+height = 174.0
 
 [node name="enemy_plant" type="CharacterBody2D"]
 script = ExtResource("1_vqh3w")
+speed = 25.0
 metadata/_custom_type_script = "uid://c4486wnuwl3tj"
 
 [node name="PlantPlaceholder" type="Sprite2D" parent="."]
 texture = ExtResource("2_0xxn4")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_0xxn4")
+
+[node name="state_machine" parent="." node_paths=PackedStringArray("movement_handler", "initial_state") instance=ExtResource("3_lm02h")]
+movement_handler = NodePath("../EnemyPlantMovementHandler")
+initial_state = NodePath("Idle")
+
+[node name="Idle" parent="state_machine" instance=ExtResource("4_lm02h")]
+
+[node name="Moving" parent="state_machine" instance=ExtResource("5_0v83d")]
+
+[node name="EnemyPlantMovementHandler" type="Node" parent="."]
+script = ExtResource("6_hmky1")
+metadata/_custom_type_script = "uid://bqrn23ydrypm3"

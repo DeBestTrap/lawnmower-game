@@ -3,6 +3,9 @@ class_name StateMachine
 extends Node
 
 @export
+var movement_handler: MovementHandler
+
+@export
 var initial_state: State
 var current_state: State
 var previous_state: State
@@ -11,6 +14,9 @@ var _states: Dictionary = {}
 
 func _ready() -> void:
     print("Intial state: %s" % initial_state)
+    if initial_state == null:
+        assert(false, "Initial state is null")
+
 
     # Loop through all the states in the tree
     for child in get_children():
@@ -18,8 +24,8 @@ func _ready() -> void:
             _states[child.name] = child
 
             child.actor = get_parent()
-            # child.movement_handler
-            # child. # signal transition?
+            child.movement_handler = movement_handler
+            child.transition_to.connect(child_transition_to)
     
     # Debug print of all states
     for state in _states:
@@ -28,6 +34,17 @@ func _ready() -> void:
     # Set the initial state
     current_state = initial_state
     current_state.enter(null)
+
+func child_transition_to(state: State, next_state_name: String) -> void:
+    if current_state != state:
+        return
+    
+    var next_state: State = _states[next_state_name]
+    if next_state == null:
+        assert(false, "Invalid state name: %s" % next_state_name)
+        return
+    
+    change_state(next_state)
 
 
 func change_state(state: State) -> void:

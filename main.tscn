@@ -1,9 +1,11 @@
-[gd_scene load_steps=5 format=3 uid="uid://byavpapill2yi"]
+[gd_scene load_steps=6 format=3 uid="uid://byavpapill2yi"]
 
 [ext_resource type="PackedScene" uid="uid://75oreaq6t75t" path="res://ui/ui.tscn" id="1_0xm2m"]
 [ext_resource type="PackedScene" uid="uid://dgho532mhr1a1" path="res://enemies/enemy_plant/enemy_plant.tscn" id="1_ig7tw"]
-[ext_resource type="PackedScene" uid="uid://c426kfy1y1pm" path="res://entity/entity.tscn" id="3_1bvp3"]
+[ext_resource type="PackedScene" uid="uid://c6xxdkdg3kup4" path="res://player/player.tscn" id="4_1bvp3"]
 [ext_resource type="PackedScene" uid="uid://b3yj8ga0v58jo" path="res://collectible/fuel/fuel.tscn" id="4_lquwl"]
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_1bvp3"]
 
 [node name="main" type="Control"]
 layout_mode = 3
@@ -20,14 +22,21 @@ grow_vertical = 2
 [node name="enemy_plant" parent="GAME" instance=ExtResource("1_ig7tw")]
 position = Vector2(243, 546)
 
-[node name="entity" parent="GAME" instance=ExtResource("3_1bvp3")]
-position = Vector2(696, 274)
-
-[node name="Camera2D" type="Camera2D" parent="GAME/entity"]
-position_smoothing_enabled = true
-rotation_smoothing_enabled = true
-
 [node name="fuel" parent="GAME" instance=ExtResource("4_lquwl")]
 position = Vector2(822, 437)
 
 [node name="TileMapLayer" type="TileMapLayer" parent="GAME"]
+
+[node name="Player" parent="GAME" instance=ExtResource("4_1bvp3")]
+position = Vector2(571, 351)
+
+[node name="Camera2D" type="Camera2D" parent="GAME/Player"]
+position_smoothing_enabled = true
+rotation_smoothing_enabled = true
+
+[node name="Area2D" type="StaticBody2D" parent="GAME"]
+position = Vector2(608, 715)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GAME/Area2D"]
+position = Vector2(-23.5, 0)
+shape = SubResource("WorldBoundaryShape2D_1bvp3")

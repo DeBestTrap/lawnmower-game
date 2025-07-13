@@ -1,3 +1,9 @@
-[gd_scene format=3 uid="uid://c426kfy1y1pm"]
+[gd_scene load_steps=2 format=3 uid="uid://c426kfy1y1pm"]
+
+[ext_resource type="Texture2D" uid="uid://cl7q4ssyy1d6r" path="res://entity/placeholder_robo.png" id="1_bclhr"]
 
 [node name="entity" type="CharacterBody2D"]
+
+[node name="PlaceholderRobo" type="Sprite2D" parent="."]
+scale = Vector2(0.194234, 0.214433)
+texture = ExtResource("1_bclhr")

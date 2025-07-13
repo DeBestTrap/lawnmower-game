@@ -1,7 +1,11 @@
-[gd_scene load_steps=2 format=3 uid="uid://dgho532mhr1a1"]
+[gd_scene load_steps=3 format=3 uid="uid://dgho532mhr1a1"]
 
 [ext_resource type="Script" uid="uid://dr77hf0yerwrx" path="res://enemies/enemy_plant/enemy_plant.gd" id="1_vqh3w"]
+[ext_resource type="Texture2D" uid="uid://dc50kt5gsv73e" path="res://enemies/enemy_plant/placeholder_plant.jpg" id="2_0xxn4"]
 
 [node name="enemy_plant" type="CharacterBody2D"]
 script = ExtResource("1_vqh3w")
 metadata/_custom_type_script = "uid://c4486wnuwl3tj"
+
+[node name="PlantPlaceholder" type="Sprite2D" parent="."]
+texture = ExtResource("2_0xxn4")

@@ -2,7 +2,8 @@ class_name Player
 extends Entity
 
 func _ready() -> void:
-    pass
+    add_to_group("player")
+    super._ready()
 
 func _physics_process(delta: float) -> void:
 

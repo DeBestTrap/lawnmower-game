@@ -1,11 +1,15 @@
-[gd_scene load_steps=8 format=3 uid="uid://c6xxdkdg3kup4"]
+[gd_scene load_steps=12 format=3 uid="uid://c6xxdkdg3kup4"]
 
 [ext_resource type="Script" uid="uid://dinemdd5xkcwr" path="res://player/player.gd" id="1_oul6g"]
 [ext_resource type="Texture2D" uid="uid://cl7q4ssyy1d6r" path="res://player/placeholder_robo.png" id="2_rkbax"]
 [ext_resource type="Script" uid="uid://jvesccsq4yf3" path="res://player/player_movement_handler.gd" id="3_g1dw6"]
 [ext_resource type="Script" uid="uid://i5jsrt6aytc5" path="res://state_machine/state_machine.gd" id="4_qjkh3"]
-[ext_resource type="PackedScene" uid="uid://c0wuh2uu62u07" path="res://states/idle.tscn" id="5_g6k8r"]
-[ext_resource type="PackedScene" uid="uid://383ixrb3csvi" path="res://states/moving.tscn" id="6_boad6"]
+[ext_resource type="Script" path="res://states/horizontal/idle.gd" id="5_8t03j"]
+[ext_resource type="Script" uid="uid://bpkq767ahc6c0" path="res://states/horizontal/moving.gd" id="6_2ieo8"]
+[ext_resource type="Script" uid="uid://cnpil5npf2icj" path="res://states/vertical/grounded.gd" id="7_8t03j"]
+[ext_resource type="Script" uid="uid://p5hmdfbnlvhk" path="res://states/vertical/jump.gd" id="8_2ieo8"]
+[ext_resource type="Script" uid="uid://cjjhep64i8l31" path="res://states/vertical/jumping.gd" id="9_ebec5"]
+[ext_resource type="Script" uid="uid://8trfxg1funxf" path="res://states/vertical/falling.gd" id="10_yllr7"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_qjkh3"]
 radius = 52.0
@@ -13,6 +17,8 @@ height = 156.0
 
 [node name="player" type="CharacterBody2D"]
 script = ExtResource("1_oul6g")
+speed = 200.0
+jump_speed = 700.0
 metadata/_custom_type_script = "uid://c4486wnuwl3tj"
 
 [node name="placeholder_robo" type="Sprite2D" parent="."]
@@ -27,12 +33,36 @@ shape = SubResource("CapsuleShape2D_qjkh3")
 script = ExtResource("3_g1dw6")
 metadata/_custom_type_script = "uid://jvesccsq4yf3"
 
-[node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("movement_handler", "initial_state")]
+[node name="HorizontalFSM" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
 script = ExtResource("4_qjkh3")
-movement_handler = NodePath("../PlayerMovementHandler")
 initial_state = NodePath("Idle")
 metadata/_custom_type_script = "uid://i5jsrt6aytc5"
 
-[node name="Idle" parent="StateMachine" instance=ExtResource("5_g6k8r")]
+[node name="Idle" type="Node" parent="HorizontalFSM"]
+script = ExtResource("5_8t03j")
+metadata/_custom_type_script = "uid://c2m6siy1bs38c"
 
-[node name="Moving" parent="StateMachine" instance=ExtResource("6_boad6")]
+[node name="Moving" type="Node" parent="HorizontalFSM"]
+script = ExtResource("6_2ieo8")
+metadata/_custom_type_script = "uid://bpkq767ahc6c0"
+
+[node name="VerticalFSM" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
+script = ExtResource("4_qjkh3")
+initial_state = NodePath("Grounded")
+metadata/_custom_type_script = "uid://i5jsrt6aytc5"
+
+[node name="Grounded" type="Node" parent="VerticalFSM"]
+script = ExtResource("7_8t03j")
+metadata/_custom_type_script = "uid://cnpil5npf2icj"
+
+[node name="Jump" type="Node" parent="VerticalFSM"]
+script = ExtResource("8_2ieo8")
+metadata/_custom_type_script = "uid://p5hmdfbnlvhk"
+
+[node name="Jumping" type="Node" parent="VerticalFSM"]
+script = ExtResource("9_ebec5")
+metadata/_custom_type_script = "uid://cjjhep64i8l31"
+
+[node name="Falling" type="Node" parent="VerticalFSM"]
+script = ExtResource("10_yllr7")
+metadata/_custom_type_script = "uid://8trfxg1funxf"

@@ -3,9 +3,6 @@ class_name StateMachine
 extends Node
 
 @export
-var movement_handler: MovementHandler
-
-@export
 var initial_state: State
 var current_state: State
 var previous_state: State
@@ -19,12 +16,12 @@ func _ready() -> void:
 
 
     # Loop through all the states in the tree
+    var actor: Entity = get_parent()
     for child in get_children():
         if child is State:
             _states[child.name] = child
 
-            child.actor = get_parent()
-            child.movement_handler = movement_handler
+            child.actor = actor
             child.transition_to.connect(child_transition_to)
     
     # Debug print of all states

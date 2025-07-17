@@ -1,8 +1,9 @@
 class_name EnemyPlant
 extends Entity
 
+
 func _ready() -> void:
-    pass
+    super._ready()
 
 func _physics_process(delta: float) -> void:
     # Add gravity

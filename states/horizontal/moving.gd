@@ -2,7 +2,7 @@ class_name Moving
 extends State
 
 func physics_update(delta: float) -> void:
-    var direction_x: float = movement_handler.get_movement_direction().x
+    var direction_x: float = actor.movement_handler.get_movement_direction().x
     var velocity_x: float
 
     # Move the actor

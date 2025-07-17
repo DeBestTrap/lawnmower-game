@@ -2,10 +2,10 @@
 
 [ext_resource type="Script" uid="uid://dr77hf0yerwrx" path="res://enemies/enemy_plant/enemy_plant.gd" id="1_vqh3w"]
 [ext_resource type="Texture2D" uid="uid://dc50kt5gsv73e" path="res://enemies/enemy_plant/placeholder_plant.jpg" id="2_0xxn4"]
-[ext_resource type="PackedScene" uid="uid://cn4ghf6dfw0fr" path="res://state_machine/state_machine.tscn" id="3_lm02h"]
-[ext_resource type="PackedScene" uid="uid://c0wuh2uu62u07" path="res://states/idle.tscn" id="4_lm02h"]
-[ext_resource type="PackedScene" uid="uid://383ixrb3csvi" path="res://states/moving.tscn" id="5_0v83d"]
+[ext_resource type="Script" uid="uid://i5jsrt6aytc5" path="res://state_machine/state_machine.gd" id="4_lm02h"]
+[ext_resource type="Script" path="res://states/horizontal/idle.gd" id="5_0v83d"]
 [ext_resource type="Script" uid="uid://bqrn23ydrypm3" path="res://enemies/enemy_plant/movement_handler.gd" id="6_hmky1"]
+[ext_resource type="Script" uid="uid://bpkq767ahc6c0" path="res://states/horizontal/moving.gd" id="6_yxo7d"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_0xxn4"]
 radius = 55.0
@@ -22,14 +22,19 @@ texture = ExtResource("2_0xxn4")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CapsuleShape2D_0xxn4")
 
-[node name="state_machine" parent="." node_paths=PackedStringArray("movement_handler", "initial_state") instance=ExtResource("3_lm02h")]
-movement_handler = NodePath("../EnemyPlantMovementHandler")
-initial_state = NodePath("Idle")
-
-[node name="Idle" parent="state_machine" instance=ExtResource("4_lm02h")]
-
-[node name="Moving" parent="state_machine" instance=ExtResource("5_0v83d")]
-
 [node name="EnemyPlantMovementHandler" type="Node" parent="."]
 script = ExtResource("6_hmky1")
 metadata/_custom_type_script = "uid://bqrn23ydrypm3"
+
+[node name="HorizontalStateMachine" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
+script = ExtResource("4_lm02h")
+initial_state = NodePath("Idle")
+metadata/_custom_type_script = "uid://i5jsrt6aytc5"
+
+[node name="Idle" type="Node" parent="HorizontalStateMachine"]
+script = ExtResource("5_0v83d")
+metadata/_custom_type_script = "uid://c2m6siy1bs38c"
+
+[node name="Moving" type="Node" parent="HorizontalStateMachine"]
+script = ExtResource("6_yxo7d")
+metadata/_custom_type_script = "uid://bpkq767ahc6c0"

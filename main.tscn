@@ -19,6 +19,13 @@ grow_vertical = 2
 
 [node name="GAME" type="Node2D" parent="."]
 
+[node name="Player" parent="GAME" instance=ExtResource("4_1bvp3")]
+position = Vector2(571, 351)
+
+[node name="Camera2D" type="Camera2D" parent="GAME/Player"]
+position_smoothing_enabled = true
+rotation_smoothing_enabled = true
+
 [node name="enemy_plant" parent="GAME" instance=ExtResource("1_ig7tw")]
 position = Vector2(243, 546)
 
@@ -26,13 +33,6 @@ position = Vector2(243, 546)
 position = Vector2(822, 437)
 
 [node name="TileMapLayer" type="TileMapLayer" parent="GAME"]
-
-[node name="Player" parent="GAME" instance=ExtResource("4_1bvp3")]
-position = Vector2(571, 351)
-
-[node name="Camera2D" type="Camera2D" parent="GAME/Player"]
-position_smoothing_enabled = true
-rotation_smoothing_enabled = true
 
 [node name="Area2D" type="StaticBody2D" parent="GAME"]
 position = Vector2(608, 715)
